@@ -1,5 +1,5 @@
 package com.project.backend.model;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -14,11 +14,13 @@ public class Expense {
     // العلاقة مع المستخدم
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     // العلاقة مع فئة المصروف
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnore
     private ExpenseCategory category;
 
     @Column(nullable = false)
