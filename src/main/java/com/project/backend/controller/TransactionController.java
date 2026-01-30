@@ -1,7 +1,7 @@
 package com.project.backend.controller;
 
 import com.project.backend.dto.TransactionRequestDTO;
-import com.project.backend.model.Transaction;
+import com.project.backend.dto.TransactionResponseDTO;
 import com.project.backend.model.User;
 import com.project.backend.service.TransactionService;
 import org.springframework.http.ResponseEntity;
@@ -22,23 +22,26 @@ public class TransactionController {
 
     // =================== GET ALL ===================
     @GetMapping
-    public ResponseEntity<List<Transaction>> getAll(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(service.getAllTransactions(user));
+    public ResponseEntity<List<TransactionResponseDTO>> getAll(@AuthenticationPrincipal User user) {
+        List<TransactionResponseDTO> transactions = service.getAllTransactions(user);
+        return ResponseEntity.ok(transactions);
     }
 
     // =================== CREATE ===================
     @PostMapping
-    public ResponseEntity<Transaction> create(@AuthenticationPrincipal User user,
-                                              @RequestBody TransactionRequestDTO dto) {
-        return ResponseEntity.ok(service.createTransaction(user, dto));
+    public ResponseEntity<TransactionResponseDTO> create(@AuthenticationPrincipal User user,
+                                                         @RequestBody TransactionRequestDTO dto) {
+        TransactionResponseDTO created = service.createTransaction(user, dto);
+        return ResponseEntity.ok(created);
     }
 
     // =================== UPDATE ===================
     @PutMapping("/{id}")
-    public ResponseEntity<Transaction> update(@PathVariable Long id,
-                                              @AuthenticationPrincipal User user,
-                                              @RequestBody TransactionRequestDTO dto) {
-        return ResponseEntity.ok(service.updateTransaction(id, user, dto));
+    public ResponseEntity<TransactionResponseDTO> update(@PathVariable Long id,
+                                                         @AuthenticationPrincipal User user,
+                                                         @RequestBody TransactionRequestDTO dto) {
+        TransactionResponseDTO updated = service.updateTransaction(id, user, dto);
+        return ResponseEntity.ok(updated);
     }
 
     // =================== DELETE ===================
@@ -51,9 +54,9 @@ public class TransactionController {
 
     // =================== BANK FEED ===================
     @PostMapping("/bank-feed")
-    public ResponseEntity<List<Transaction>> bankFeed(@AuthenticationPrincipal User user,
-                                                      @RequestBody List<TransactionRequestDTO> transactions) {
-        List<Transaction> savedTransactions = transactions.stream()
+    public ResponseEntity<List<TransactionResponseDTO>> bankFeed(@AuthenticationPrincipal User user,
+                                                                 @RequestBody List<TransactionRequestDTO> transactions) {
+        List<TransactionResponseDTO> savedTransactions = transactions.stream()
                 .map(dto -> service.createTransaction(user, dto))
                 .toList();
         return ResponseEntity.ok(savedTransactions);
