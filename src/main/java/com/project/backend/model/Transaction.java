@@ -1,4 +1,5 @@
 package com.project.backend.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -26,14 +27,17 @@ public class Transaction {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore 
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expense_category_id")
+    @JsonIgnore
     private ExpenseCategory expenseCategory; // إذا النوع EXPENSE
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "income_category_id")
+    @JsonIgnore
     private IncomeCategory incomeCategory; // إذا النوع INCOME
 
     @Column(name = "created_at", updatable = false)
