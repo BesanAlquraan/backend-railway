@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class AiService {
 
-    @Value("${gemini.api.key}")
-    private String geminiApiKey;
+   private final String geminiApiKey = System.getenv("GEMINI_API_KEY");
+
 
     // اسم الموديل اللي بتستخدميه
     private static final String MODEL = "gemini-2.5-flash";
