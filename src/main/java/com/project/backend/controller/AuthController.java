@@ -29,6 +29,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO request) {
 
         Optional<User> userOpt = userRepository.findByEmail(request.getEmail());
+      //  يرجع Optional لتجنب NullPointerException,يبحث عن المستخدم باستخدام الإيميل
         if (userOpt.isEmpty()) {
             return ResponseEntity.status(401).body("{\"message\":\"Invalid email or password\"}");
         }
