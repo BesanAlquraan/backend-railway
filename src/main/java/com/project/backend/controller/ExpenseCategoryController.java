@@ -44,7 +44,7 @@ public class ExpenseCategoryController {
                        @AuthenticationPrincipal User user) {
         service.delete(id, user);
     }
-
+//يحول ExpenseCategory Entity إلى Response DTO.
     private ExpenseCategoryResponseDTO map(ExpenseCategory c) {
         return ExpenseCategoryResponseDTO.builder()
                 .id(c.getId())
