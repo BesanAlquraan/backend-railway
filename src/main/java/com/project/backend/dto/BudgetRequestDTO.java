@@ -10,6 +10,7 @@ public class BudgetRequestDTO {
     private Boolean isMonthly;
 
     // ===================== Constructors =====================
+    // ضروري لتعامل Spring عند تحويل JSON → Object.
     public BudgetRequestDTO() {
     }
 
@@ -65,6 +66,7 @@ public class BudgetRequestDTO {
     }
 
     @Override
+    // بستخدمه لعدم تكرار الببيانات
     public int hashCode() {
         return Objects.hash(categoryId, limitAmount, isMonthly);
     }
